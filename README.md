@@ -9,11 +9,18 @@ This library allows easy connection to websocket servers with configuration.
 Add dependency to your pom.xml:
 
 ```xml
-
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories> 
+```
+```xml
 <dependency>
-    <groupId>websocket_connector</groupId>
+    <groupId>com.github.YuraRavaR</groupId>
     <artifactId>websocket_connect</artifactId>
-    <version>1.0.0</version>
+    <version>a93bf3361f</version>
 </dependency>
 ```
 
