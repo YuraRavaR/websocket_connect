@@ -20,7 +20,7 @@ Add dependency to your pom.xml:
 <dependency>
     <groupId>com.github.YuraRavaR</groupId>
     <artifactId>websocket_connect</artifactId>
-    <version>a93bf3361f</version>
+    <version>98ab85d5bf</version>
 </dependency>
 ```
 
