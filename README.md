@@ -4,10 +4,8 @@ This library allows easy connection to websocket servers with configuration.
 
 ## Usage
 
-### 1. Add Dependency
-
-Add dependency to your pom.xml:
-
+### 1. Add JitPack Repository
+   Add JitPack repository to your pom.xml:
 ```xml
 <repositories>
     <repository>
@@ -16,6 +14,12 @@ Add dependency to your pom.xml:
     </repository>
 </repositories> 
 ```
+It is necessary because library is hosted on JitPack, service that dynamically builds and packages Git repositories 
+as Maven dependencies.
+
+### 2. Add Dependency
+
+Add dependency to your pom.xml:
 ```xml
 <dependency>
     <groupId>com.github.YuraRavaR</groupId>
@@ -24,7 +28,7 @@ Add dependency to your pom.xml:
 </dependency>
 ```
 
-### 2. Create SocketContext
+### 3. Create SocketContext
 
 Initialize `SocketContext` object to configure your WebSocket connection.
 You can create SocketContext with all necessary parameters.
@@ -55,7 +59,7 @@ SocketContext context=new SocketContext();
         context.setTimeOut(10);
 ```
 
-### 3. Connect and Send Message
+### 4. Connect and Send Message
 
 Use  `WebClient`  to connect to WebSocket server and send messages.
 
