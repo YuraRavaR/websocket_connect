@@ -30,10 +30,7 @@ public class SocketContext {
      * status code of WebSocket connection
      */
     private int statusCode;
-    /**
-     * timeout for WebSocket connection
-     */
-    private int timeOut;
+
     /**
      * time taken for connection to remain alive
      */
@@ -59,17 +56,11 @@ public class SocketContext {
         this.requestHeaders = requestHeaders;
     }
 
-    public void setMessageList(List<String> messageList) {
-        this.messageList = messageList;
-    }
 
     public void setStatusCode(int statusCode) {
         this.statusCode = statusCode;
     }
 
-    public void setTimeOut(int timeOut) {
-        this.timeOut = timeOut;
-    }
 
     public void setTimeTaken(int timeTaken) {
         this.timeTaken = timeTaken;
@@ -103,9 +94,6 @@ public class SocketContext {
         return statusCode;
     }
 
-    public int getTimeOut() {
-        return timeOut;
-    }
 
     public int getTimeTaken() {
         return timeTaken;
