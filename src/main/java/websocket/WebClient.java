@@ -48,6 +48,11 @@ public class WebClient {
 
     public void sendMessage(String message) {
         if (client != null && client.isOpen()) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             client.send(message);
         } else {
             logger.error("WebSocket connection is not open. Cannot send message: " + message);
