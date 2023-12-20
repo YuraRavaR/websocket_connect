@@ -15,14 +15,17 @@ public class TestWebClient3 {
         context.setURI(url);
         webClient.connectToSocket(context);
         webClient.waitForMessages(10);
-        webClient.sendMessageAsync("expectedMessage")
-                .thenCompose(ignore -> webClient.sendMessageAsync("expectedMessage2"))
-                .thenCompose(ignore -> webClient.sendMessageAsync("expectedMessage"))
-                .join();
+//        webClient.sendMessageAsync("expectedMessage")
+//                .thenCompose(ignore -> webClient.sendMessageAsync("expectedMessage2"))
+//                .thenCompose(ignore -> webClient.sendMessageAsync("expectedMessage"))
+//                .join();
+        webClient.sendMessage("expectedMessage");
+        webClient.sendMessage("expectedMessage2");
+        webClient.sendMessage("expectedMessage3");
         context.getMessageList().forEach(message -> {
             System.out.println("Received message: " + message);
         });
         webClient.closeConnection();
-        webClient.sendMessageAsync("ex");
+        webClient.sendMessage("ex");
     }
 }
