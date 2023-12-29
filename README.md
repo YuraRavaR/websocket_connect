@@ -5,8 +5,11 @@ This library allows easy connection to websocket servers with configuration.
 ## Usage
 
 ### 1. Add JitPack Repository
-   Add JitPack repository to your pom.xml:
+
+Add JitPack repository to your pom.xml:
+
 ```xml
+
 <repositories>
     <repository>
         <id>jitpack.io</id>
@@ -14,12 +17,14 @@ This library allows easy connection to websocket servers with configuration.
     </repository>
 </repositories> 
 ```
-It is necessary because library is hosted on JitPack, service that dynamically builds and packages Git repositories 
+
+It is necessary because library is hosted on JitPack, service that dynamically builds and packages Git repositories
 as Maven dependencies.
 
 ### 2. Add Dependency
 
 Add dependency to your pom.xml:
+
 ```xml
 <dependency>
     <groupId>com.github.YuraRavaR</groupId>
@@ -35,34 +40,48 @@ You can create SocketContext with all necessary parameters.
 
 - **URI:** To connect to WebSocket server
 
-- **expectedMessage:** Expected message to verify if received
-
 - **requestHeaders:** Custom request headers for WebSocket connection
-
-- **messageList:** List to store received messages
-
-- **statusCode:** Status code of  WebSocket connection
-
-- **timeOut:** Timeout for WebSocket connection
-
-- **timeTaken:** Time taken for  connection to remain alive
 
 - **body:** Body to be sent as message to WebSocket server
 
-- **runnable:** Runnable task to be executed during WebSocket connection
 
 ```java
 SocketContext context=new SocketContext();
         context.setURI("wss://your.websocket.server");
-        context.setExpectedMessage("Hello, WebSocket!");
-        context.setRequestHeaders(Map.of("Authorization","Bearer YourToken"));
-        context.setTimeOut(10);
+        context.setRequestHeaders(Map.of("Authorization","Bearer Token"));
+        context.setBody(json);
 ```
+The `messageList` field in `SocketContext` class is list that stores all messages received during  WebSocket connection.
+Example of usage: 
+```java
+Assert.assertTrue(context.getMessageList().contains(expectedMessage)
+```
+        
+### 4.Use WebClient
 
-### 4. Connect and Send Message
-
-Use  `WebClient`  to connect to WebSocket server and send messages.
+To interact with WebSocket server, you can use `WebClient` class.
 
 ```java
-WebClient.getInstance().connectToSocket(context);
+WebClient webClient=new WebClient();
+
+//Connect to WebSocket server
+        webClient.connectToSocket(context);
+
+// Send synchronous messages
+        webClient.sendMessage("Hello, WebSocket!");
+
+// Send asynchronous messages
+        webClient.sendMessageAsync("Async message").join();
+
+// Wait for incoming messages for 10 seconds
+        webClient.waitForMessages(10);
+
+// Asynchronously wait for incoming messages for 5 seconds
+        webClient.waitForMessagesAsync(5);
+
+// Close  WebSocket connection
+        webClient.closeConnection();
 ```
+### Logs
+The library generates logs using log4j, which records key events such as opening  connection, receiving messages, 
+and closing it.

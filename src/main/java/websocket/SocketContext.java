@@ -15,72 +15,39 @@ public class SocketContext {
      */
     private String URI;
     /**
-     * expected message to verify if received
-     */
-    private String expectedMessage;
-    /**
      * custom request headers for WebSocket connection
      */
     private Map<String, String> requestHeaders = new HashMap<>();
-    /**
-     * list to store received messages
-     */
-    private List<String> messageList = new ArrayList<>();
-    /**
-     * status code of WebSocket connection
-     */
-    private int statusCode;
 
-    /**
-     * time taken for connection to remain alive
-     */
-    private int timeTaken;
     /**
      * body to be sent as message to WebSocket server
      */
     private String body;
+
     /**
-     * runnable task to be executed during WebSocket connection
+     * list to store received messages
      */
-    private Runnable runnable;
+    private List<String> messageList = new ArrayList<>();
 
     public void setURI(String URI) {
         this.URI = URI;
     }
 
-    public void setExpectedMessage(String expectedMessage) {
-        this.expectedMessage = expectedMessage;
-    }
 
     public void setRequestHeaders(Map<String, String> requestHeaders) {
         this.requestHeaders = requestHeaders;
     }
 
 
-    public void setStatusCode(int statusCode) {
-        this.statusCode = statusCode;
-    }
-
-
-    public void setTimeTaken(int timeTaken) {
-        this.timeTaken = timeTaken;
-    }
-
     public void setBody(String body) {
         this.body = body;
     }
 
-    public void setRunnable(Runnable runnable) {
-        this.runnable = runnable;
-    }
 
     public String getURI() {
         return URI;
     }
 
-    public String getExpectedMessage() {
-        return expectedMessage;
-    }
 
     public Map<String, String> getRequestHeaders() {
         return requestHeaders;
@@ -90,20 +57,9 @@ public class SocketContext {
         return messageList;
     }
 
-    public int getStatusCode() {
-        return statusCode;
-    }
-
-
-    public int getTimeTaken() {
-        return timeTaken;
-    }
 
     public String getBody() {
         return body;
     }
 
-    public Runnable getRunnable() {
-        return runnable;
-    }
 }

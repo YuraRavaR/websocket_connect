@@ -15,43 +15,26 @@ public class Client extends WebSocketClient {
 
     private final SocketContext context;
 
-    private Date openedTime;
-
 
     public Client(SocketContext context) throws URISyntaxException {
         super(new URI(context.getURI()));
         this.context = context;
     }
 
-    public int getAliveTime() {
-        Date closeDate = new Date();
-        int timeInSeconds = (int) (closeDate.getTime() - openedTime.getTime()) / 1000;
-        context.setTimeTaken(timeInSeconds);
-        return timeInSeconds;
-    }
-
-
     @Override
-    public void onOpen(ServerHandshake handshakedata) {
-        openedTime = new Date();
+    public void onOpen(ServerHandshake handShakeData) {
         logger.info("Opened Connection {}", context.getURI());
     }
-
 
     @Override
     public void onMessage(String message) {
         logger.info("Received new message {}", message);
         context.getMessageList().add(message);
-        String expectedMessage = context.getExpectedMessage();
-        if (expectedMessage != null && expectedMessage.equals(message)) {
-            closeConnection(1000, "Received expected message");
-        }
     }
 
     @Override
     public void onClose(int code, String reason, boolean remote) {
         logger.info("Close socket with code {}, reason is {}", code, reason);
-        context.setStatusCode(code);
     }
 
     @Override
