@@ -4,12 +4,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class WebClient {
@@ -18,14 +14,6 @@ public class WebClient {
     private Client client;
 
     private static final Logger logger = LogManager.getLogger(WebClient.class);
-
-    private WebClient() {
-    }
-
-
-    public static WebClient getInstance() {
-        return new WebClient();
-    }
 
 
     public void connectToSocket(SocketContext context) {
@@ -69,16 +57,14 @@ public class WebClient {
         return sendMessageFuture;
     }
 
-//    public void waitForMessages(int seconds) {
-//        int timeout = seconds;
-//        long startTime = System.currentTimeMillis();
-//
-//        while (System.currentTimeMillis() - startTime < timeout * 1000) {
-//
-//        }
-//    }
-
     public void waitForMessages(int seconds) {
+        int timeout = seconds;
+        long startTime = System.currentTimeMillis();
+        while (System.currentTimeMillis() - startTime < timeout * 1000) {
+        }
+    }
+
+    public void waitForMessagesAsync(int seconds) {
         CompletableFuture<Void> future = new CompletableFuture<>();
         CompletableFuture.delayedExecutor(seconds, TimeUnit.SECONDS)
                 .execute(() -> future.complete(null));
@@ -90,6 +76,7 @@ public class WebClient {
         if (client != null && client.isOpen()) {
             client.close(1000);
             client = null;
+            logger.info("WebSocket connection is closed");
         } else {
             logger.error("WebSocket connection is not open. Cannot close connection");
             throw new IllegalStateException("WebSocket connection is not open.");
